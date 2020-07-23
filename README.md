@@ -2,7 +2,7 @@
 
 Simplified backend components of a temperature monitoring solution implemented using web technology.
 
-# Status
+## Status
 
 This project contains simplified components of a monitoring solution which has been implemented using web
 technology. It has 3 parts:
@@ -15,7 +15,7 @@ technology. It has 3 parts:
 The application is a part of an overall temperature monitoring solution. Various temperature
 sensors send real time temperature updates to the server(here, random whole integer values are being generated to simulate the sensor). There are http clients which are interested in continuously monitoring the temperature and they subscribe for it with the server. Whenever server receives an update, it publishes the real-time updates to all interested clients. Every real-time data transmission occurs with a frequency of 5 seconds as of now.
 
-### Prerequisites
+### Pre-installation Information
 
 I have used the following technologies to implement this project:
 Node.js, NPM, Socket.io, PM2, Linux OS.
