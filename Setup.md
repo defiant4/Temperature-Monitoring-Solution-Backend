@@ -51,8 +51,9 @@ You can use the steps below to setup and install the required dependencies to ru
 							   To check logs use:
 							   pm2 logs <filename>
 	
-  For example, if I want to start and daemonize the central_server.js file, I would go to the server directory and use the following commands:
-								pm2 start central_server.js -l ./central_server.log (storing the logs in the same directory with the name central_server.log)
+   For example, if I want to start and daemonize the central_server.js file, I would go to the server directory and use the following commands:
+								pm2 start central_server.js -l ./central_server.log 
+								(storing the logs in the same directory with the name central_server.log)
 								To list: pm2 list
 								To stop:
 								pm2 stop central_server
@@ -62,8 +63,8 @@ You can use the steps below to setup and install the required dependencies to ru
 								To flush all the logs, use the command:
 								pm2 flush
 								
-  For more information on pm2 commands, you can do pm2 --help from the terminal or use the following link:
-  https://pm2.keymetrics.io/docs/usage/quick-start/		
+   For more information on pm2 commands, you can do pm2 --help from the terminal or use the following link:
+   https://pm2.keymetrics.io/docs/usage/quick-start/		
 
 N.B: For further queries you can always reach out me at arnabdhikari93@gmail.com
 
