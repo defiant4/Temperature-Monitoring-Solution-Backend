@@ -1,44 +1,44 @@
 # Setup/Installation Steps for this Backend Project
 
-You can use the steps below to setup and install the required dependencies to run and test this project:
+You can use the steps below to setup and install the required dependencies to run and test this project.
 
 1. Install Node.js from the official site: https://nodejs.org/en/download/
 	You can even use Google to search the different ways to install node.js for various flavours of Linux OS.
 	For Windows OS, always install the latest LTS version.
 	
 2. Create a new directory(assuming the directory name is: nodejs_app).
-    Once you are in the above directory you can run the following commands from the terminal to check whether node and npm is available or not and also check the version:
+    Once you are in the above directory you can run the following commands from the terminal to check whether node and npm is available or not and also to check the version:
 	node -v
 	npm -v
 	
 3. Now in the same directory install the following modules using npm:
 
-		a) npm init -> This initializes and creates the package.json. It also asks you series of development signature related questions and you can press ENTER and skip(with default values) if you want(since this is for demo purpose only).
+		a) npm init -> This initializes and creates the package.json. It also asks you series of development signature related questions and you can press ENTER and 			skip(with default values) if you want(since this is for demo purpose only).
 		The package.json is the main file which will help in installing npm modules by saving the dependencies inside it.
-		b) npm config set strict-ssl false -> since we are using the same server(localhost) for all the trasmission and communication.
+		b) npm config set strict-ssl false -> since we are using the same server(localhost) for all trasmission and communication.
 		c) npm install npm-install-all
 		d) npm install express
 		e) npm install axios
 		f) npm install body-parser
 		g) npm install socket.io
-		h) npm install pm2 -g -> installs production process manager to daemonize and run the js files. Run pm2 list command on the terminal after pm2 installtion to check if pm2 is working or not. If not working or stuck, run pm2 kill and then pm2 list once more.
+		h) npm install pm2 -g -> installs production process manager to daemonize and run the js files. Run pm2 list command on the terminal after pm2 installtion to 			check if pm2 is working or not. If it's not working or stuck, run pm2 kill and then pm2 list once more.
 		
 		Please note that for any issues related to npm modules you can search on Google or you can use the official site: https://www.npmjs.com/
 		For socket.io , you can use: https://socket.io/get-started/chat/
 		For PM2 : https://pm2.keymetrics.io/docs/usage/quick-start/
 		
-4. Now in the same directory(nodejs_app) clone the codebase using git     clone(https://github.com/defiant4/Temperature-Monitoring-Solution-Backend.git).
+4. Now in the same directory(nodejs_app) clone the codebase using git clone https://github.com/defiant4/Temperature-Monitoring-Solution-Backend.git .
 
 5. Session-based: Once cloned, now to run the application you need to go to the relevant directories.
 				  server-> contains the central_server.js file
 				  simulated_sensor-> contains the sensor_client01.js and sensor_client02.js files
-                  test_client-> contains the subscribed_client01.js and subscribed_client02.js files
+                  		  test_client-> contains the subscribed_client01.js and subscribed_client02.js files
    
-   Ideally you should run the server first then the simualted sensor clients and finally the interested clients.
+   Ideally you should run the server first then the simualted sensor clients and finally the interested clients on different sessions(shell).
    But in this project I have handled connection errors and disconnections properly and hence you can run in any sequence and you would receive the relevant messages.
    Please note that for any ERROR apart from connection error you will have to run the relevant files once more.
    
-   To run any file you can use node <filename.js> on the terminal and in the same session(shell), the messages would be visible to you via the console.
+   To run any file you can use the command- node <filename.js> on the terminal and in the same session(shell), the messages would be visible to you via the console.
    For example, if I want to run the central_server.js file I would go to the server directory and run the command:
    node central_server.js. For each file/application you would have to open separate sessions(shell) to run them.
    
@@ -53,7 +53,7 @@ You can use the steps below to setup and install the required dependencies to ru
 	
    For example, if I want to start and daemonize the central_server.js file, I would go to the server directory and use the following commands:
 								pm2 start central_server.js -l ./central_server.log 
-								(storing the logs in the same directory with the name central_server.log)
+								(while starting also storing the logs in the same directory with the name central_server.log)
 								To list: pm2 list
 								To stop:
 								pm2 stop central_server
