@@ -20,17 +20,17 @@ sensors send real time temperature updates to the server(here, random whole inte
 I have used the following technologies to implement this project:
 Node.js, NPM, Socket.io, PM2, Linux OS.
 
-Please note that the 3 parts have been automated(except historical data) since I am not using any DB or persistence layer in this project. Also, the sensor client connections with the central server have been hardcoded with the identifiers "sensor01" and "sensor02", which can later be automated using the same SERVER-CLIENT key pair logic as the server-subscribed clients logic. Any number of clients/System-IDs(SIDs) can be used to connect to the server since the whole application is highly scalable. I have currently used 3 keywords for 3 SIDs such as REF->Refrigerators, ACR->Air-Coolers, ROM-> Room. More information on this is available in the Web Service Interface Document.
+Please note that the 3 parts have been automated(except historical data) since I am not using any DB or persistence layer in this project. Also, the sensor client connections with the central server have been hardcoded with the identifiers "sensor01" and "sensor02", which can later be automated using the same SERVER-CLIENT key pair logic as the server-subscribed clients. Any number of clients/System-IDs(SIDs) can be used to connect to the server since the whole application is highly scalable. I have currently used 3 keywords for 3 SIDs such as REF->Refrigerators, ACR->Air-Coolers, ROM-> Room. More information on this is available in the Web Service Interface Document.
 
 ### Installing
 
-This application has been developed focusing on Linux OS and the Setup.md installation guide is intended for Linux users mostly. But interested users can use this code on Windows or Mac too.(The codebase has been tested on Windows).
+This application has been developed focusing on Linux OS and the Setup.md installation guide is intended for Linux users mostly. But interested users can use this code on Windows or Mac too.(The codebase has also been tested on Windows).
 
 Please read the Setup.md file for detailed information on how to run this project.
 
 ## Running the tests
 
-Apart from the main central_server.js we have multiple sensor clients(sensor_client01.js and sensor_client02.js) and also multiple interested clients(subscribed_client01.js and subscribed_client02.js) for testing.
+Apart from the main central_server.js we have 2 sensor clients(sensor_client01.js and sensor_client02.js) and also 2 interested clients(subscribed_client01.js and subscribed_client02.js) for testing.
 
 Ideally, you should start the server first , then the sensor clients and finally the interested clients. But proper connection error and disconnection has been handled in the websocket, hence you can start the application in any order you want for testing and you would get the relevant messages.
 For any ERROR other than connection errors, you would need to run the relevant js files once more.
@@ -49,7 +49,7 @@ After successful subscription, the client requests for real time data from the s
 
 ### And coding style tests
 
-I have used vanilla javascript(ES6) with Node.js(v12.00XX) and Socket.io(2.0) for coding the whole codebase.
+I have used Vanilla Javascript(ES6) with Node.js(v12.00XX) and Socket.io(2.0) for coding the whole codebase.
 Proper coding indentation and comments have been maintained throughout each js file for easy code readability.
 
 ## Deployment
@@ -78,4 +78,4 @@ This project is currently not licensed and is free to use subject to clearance f
 
 ## Acknowledgments
 
-* Hat tip to Mr. Kiran Kumar M R for his support.
+* Hat tip to Mr.Kiran Kumar M R for his support.
