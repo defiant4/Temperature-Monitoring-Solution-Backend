@@ -20,7 +20,7 @@ sensors send real time temperature updates to the server(here, random whole inte
 I have used the following technologies to implement this project:
 Node.js, NPM, Socket.io, PM2, Linux OS.
 
-Please note that the 3 parts have been automated(except historical data) since I am not using any DB or persistence layer in this project. Also, the sensor client connections with the central server have been hardcoded with the identifiers "sensor01" and "sensor02", which can later be automated using the same CLIENT-SERVER key pair logic as the server-subscribed clients logic. Any number of clients/System-IDs(SIDs) can be used to connect to the server since the whole application is highly scalable. I have currently used 3 keywords for 3 SIDs such as REF->Refrigerators, ACR->Air-Coolers, ROM-> Room. More information on this is available in the Web Service Interface Document.
+Please note that the 3 parts have been automated(except historical data) since I am not using any DB or persistence layer in this project. Also, the sensor client connections with the central server have been hardcoded with the identifiers "sensor01" and "sensor02", which can later be automated using the same SERVER-CLIENT key pair logic as the server-subscribed clients logic. Any number of clients/System-IDs(SIDs) can be used to connect to the server since the whole application is highly scalable. I have currently used 3 keywords for 3 SIDs such as REF->Refrigerators, ACR->Air-Coolers, ROM-> Room. More information on this is available in the Web Service Interface Document.
 
 ### Installing
 
