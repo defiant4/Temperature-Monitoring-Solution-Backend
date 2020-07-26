@@ -121,7 +121,7 @@ arr_rom.push(finalvalue[i].ROM);
 
 	//event fired upon a client disconnection
 	socket.on('disconnect', function() {
-    	console.log("ERROR: Client disconnected with socket id:"+ socket.id);
+    	console.log("INFO: Client disconnected with socket id:"+ socket.id);
 	});
 });
 
