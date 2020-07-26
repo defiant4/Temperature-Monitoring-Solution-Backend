@@ -118,6 +118,11 @@ arr_rom.push(finalvalue[i].ROM);
 				console.log("ERROR in verification with subscribed client");   //If the unique CLIENT key does not match with the server data
 		},5000);   //5 seconds
 	});
+
+	//event fired upon a client disconnection
+	socket.on('disconnect', function() {
+    	console.log("ERROR: Client disconnected with socket id:"+ socket.id);
+	});
 });
 
 io.close();                 //Close current server properly on disconnection
