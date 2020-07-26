@@ -33,7 +33,7 @@ socket.on('connect', function(){
 		server_key=response.data;
 		//ERROR checking for wrong URL
 		if(server_key == "ERROR")
-			console.log("ERROR: Length value in POST request URL is more than SIDs in JSON body");
+			console.log("ERROR: Length value in POST request URL does not match SIDs in JSON body");
 		else
 			console.log("INFO: Success in Registration and received the unique key from server:"+server_key);
 
