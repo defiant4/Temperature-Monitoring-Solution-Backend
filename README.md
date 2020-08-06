@@ -24,9 +24,9 @@ Please note that the 3 parts have been automated(except historical data) since I
 
 ### Installing
 
-This application has been developed focusing on Linux OS and the Setup.md installation guide is intended for Linux users mostly. But interested users can use this code on Windows or Mac too.(The codebase has also been tested on Windows).
+This application has been developed focusing on Linux OS and the [Setup.md](https://github.com/defiant4/Temperature-Monitoring-Solution-Backend/blob/master/Setup.md) installation guide is intended for Linux users mostly. But interested users can use this code on Windows or Mac too.(The codebase has also been tested on Windows).
 
-Please read the Setup.md file for detailed information on how to run this project.
+Please read the [Setup.md](https://github.com/defiant4/Temperature-Monitoring-Solution-Backend/blob/master/Setup.md) file for detailed information on how to run this project.
 
 ## Running the tests
 
