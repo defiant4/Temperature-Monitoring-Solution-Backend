@@ -18,7 +18,7 @@ const app = require('express')();			//importing the express module
 const server = require('http').createServer(app);	//importing the http module 
 const io = require("socket.io")(server);		//importing the socket.io server library
 const body_parser = require("body-parser");		//importing the body-parser library to parse JSON content-type
-const config = require('../../config.json');
+const config = require('../config.json');
 var reported_sensor_reading={};			//to store temperature and timestamp values from sensor01 and sensor02
 var subscription_info={};			//to store System ID(s) from subscribed client
 //var arr_ref=[];var arr_acr=[];var arr_rom=[];
