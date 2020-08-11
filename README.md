@@ -15,12 +15,14 @@ technology. It has 3 parts:
 The application is a part of an overall temperature monitoring solution. Various temperature
 sensors send real time temperature updates to the server(here, random whole integer values are being generated to simulate the sensor). There are http clients which are interested in continuously monitoring the temperature and they subscribe for it with the server. Whenever server receives an update, it publishes the real-time updates to all interested clients. Every real-time data transmission occurs with a frequency of 5 seconds as of now.
 
+The codebase also contains a config.json file to maintain the fields such as ip,port,frequency to dynamically control these values as per environment and requirement.
+
 ### Pre-installation Information
 
 I have used the following technologies to implement this project:
 Node.js, NPM, Socket.io, PM2, Linux OS.
 
-Please note that the 3 parts have been automated(except historical data) since I am not using any DB or persistence layer in this project. Also, the sensor client connections with the central server have been hardcoded with the identifiers "sensor01" and "sensor02", which can later be automated using the same SERVER-CLIENT key pair logic as the server-subscribed clients. Any number of clients/System-IDs(SIDs) can be used to connect to the server since the whole application is highly scalable. I have currently used 3 keywords for 3 SIDs such as REF->Refrigerators, ACR->Air-Coolers, ROM-> Room. More information on this is available in the Web Service Interface Document.
+Please note that the 3 parts have been automated(except historical data) since I am not using any DB or persistence layer in this project. Also, the sensor client connections with the central server have been hardcoded with the identifier "sensor", which can later be automated using the same SERVER-CLIENT token pair logic as the server-subscribed clients. Any number of clients/System-IDs(SIDs) can be used to connect to the server since the whole application is highly scalable. I have currently used 3 keywords for 3 SIDs such as REF->Refrigerators, ACR->Air-Coolers, ROM-> Room. More information on this is available in the Web Service Interface Document.
 
 ### Installing
 
