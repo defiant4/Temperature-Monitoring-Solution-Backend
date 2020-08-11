@@ -14,17 +14,18 @@
 /* PLEASE DO NOT CHANGE THE BELOW CODE MANUALLY!                       */
 /*---------------------------------------------------------------------*/
 
-const app = require('express')();				//importing the express module 
-const server = require('http').createServer(app);		//importing the http module 
-const io = require("socket.io")(server);			//importing the socket.io server library
-const bodyParser = require("body-parser");			//importing the body-parser library to parse JSON content-type
+const app = require('express')();			//importing the express module 
+const server = require('http').createServer(app);	//importing the http module 
+const io = require("socket.io")(server);		//importing the socket.io server library
+const body_parser = require("body-parser");		//importing the body-parser library to parse JSON content-type
+const config = require('../config.json');
 
-var value={}; 							//to store temperature and timestamp values from sensor01 and sensor02
-var finalvalue={};						//to store System ID(s) from subscribed client
+var reported_sensor_reading={};			//to store temperature and timestamp values from sensor01 and sensor02
+var subscription_info={};			//to store System ID(s) from subscribed client
 //var arr_ref=[];var arr_acr=[];var arr_rom=[];
 
 //to parse content-type JSON
-app.use(bodyParser.json());					
+app.use(body_parser.json());					
 
 //CORS Middleware
 app.use(function (req, res, next) {
@@ -35,33 +36,34 @@ app.use(function (req, res, next) {
 	next();
 });
 
-var random_int= Math.round(randomNumber(100,500));
+var random_int= Math.round(random_number(100,500));
 
 //converting random integer value to string to pass as response for subscription POST request(s)
-var server_unique=random_int.toString(); 
+var server_unique_token=random_int.toString(); 
 
 //generates random unique key value for each client request
-function randomNumber(min, max) {
+function random_number(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
 //POST API WebHook for Client(s) Subscription 
-app.post("/api/registration/:sid_length", (req, res) => {
-	var sid_len = req.params.sid_length;  //length parameter from the POST url in string
-	var len_int=parseInt(sid_len);        //converting to integer
-	var i=1; var sid_arr=[req.body.Unique];
-	if(typeof (req.body["SID"+(len_int)]) !== "undefined")
+app.post("/api/registration", (req, res) => {
+	var sid_len = req.body.SID_Count;
+	var len_int=parseInt(sid_len);		//converting to integer
+	var i=0; var sid_list_arr=[];
+
+	if(len_int === req.body.SID_List.length)
 	{
-		while(i<=len_int){
-			sid_arr.push(req.body["SID"+i]);
+		while(i<len_int){
+			sid_list_arr.push(req.body.SID_List[i]);
 			i++;
 		}
-		finalvalue[req.body.Unique]=sid_arr;
-		res.send(server_unique);     //sending server unique key to the subscribed client
+		subscription_info[req.body.Client_Token]=sid_list_arr;		//subscription_info[CLIENT1]=[ACR01,ROM02]
+		res.send(server_unique_token);	//sending server token to the subscribed client
 	}
 	else
-		res.send("ERROR"); 	     //If received POST URL is not as expected
-	res.status(200).end(); 		     //Properly ending response on successful processing
+		res.send("ERROR");		//If sid count does not match with the sid list length
+	res.status(200).end();			//Properly ending response on successful processing
 })
 
 //event fired upon a client connection(including a successful client reconnection)
@@ -69,21 +71,12 @@ io.on("connection", (socket) => {
 	console.log("INFO: Client connected with socket id:"+socket.id);
 
 	//event fired upon connection(including a successful reconnection) with the identifier sensor01
-	socket.on('sensor01', function (data) {
-		for (var i=0;i<data.metrics.length;i++)
+	socket.on('sensor', function (sensor_data) {
+		for (var i=0;i<sensor_data.metrics.length;i++)
 		{
-		value[data.metrics[i].SID]={Temperature:data.metrics[i].Temperature,Timestamp:data.Timestamp};
+		reported_sensor_reading[sensor_data.metrics[i].SID]={Temperature:sensor_data.metrics[i].Temperature,Timestamp:sensor_data.Timestamp};
 		}
-		console.log("Sensor Client-1 Data:"+JSON.stringify(data));
-	});
-
-	//event fired upon connection(including a successful reconnection) with the identifier sensor02
-	socket.on('sensor02', function (data) {
-		for (var i=0;i<data.metrics.length;i++)
-                {
-                value[data.metrics[i].SID]={Temperature:data.metrics[i].Temperature,Timestamp:data.Timestamp};
-                }
-		console.log("Sensor Client-2 Data:"+JSON.stringify(data));
+		console.log("Sensor Client Data:"+JSON.stringify(sensor_data));
 	});
 
 /*for (var i= 0; i<finalvalue.length;i++)
@@ -96,27 +89,21 @@ if(finalvalue[i].hasOwnProperty('ROM'))
 arr_rom.push(finalvalue[i].ROM);
 }*/
 
-	//event fired upon connection (including a successful reconnection) with the the unique key-value pair
-	socket.on(server_unique, function (data) {
+	//event fired upon connection (including a successful reconnection) with the server and CLIENT unique token
+	socket.on(server_unique_token, function (client_token) {
 		//frequency of 5 seconds
 		setInterval(() => {
-			var res_sid=finalvalue[data];			//stores the SID(s) of subscribed client(as per the SERVER-CLIENT key pair) 
-			var unique=res_sid[0];				//stores unique key of the subscribed client(as per the SERVER-CLIENT key pair)
+			var sid_info=subscription_info[client_token];		//stores the SID(s) of subscribed client(as per the CLIENT token) 
 
-			//verifying whether unique CLIENT key is matching with subscription data
-			if(data == unique){
-				var sid_data={};      			//to store the response data for the subscribed client		
-				var len = res_sid.length;
-				for(var i=1;i<len;i++)
+				var sid_data={};				//to store the response data for the subscribed client		
+				var len = sid_info.length;
+				for(var i=0;i<len;i++)
 				{
-					sid_data[res_sid[i]]=value[res_sid[i]];
+					sid_data[sid_info[i]]=reported_sensor_reading[sid_info[i]];
 				}
-				//emits an event to the subscribed client identified by the unique CLIENT key
-				socket.emit(data,sid_data); 	
-			}
-			else
-				console.log("ERROR in verification with subscribed client");   //If the unique CLIENT key does not match with the server data
-		},5000);   //5 seconds
+				//emits an event to the subscribed client identified by the unique CLIENT token
+				socket.emit(client_token,sid_data);
+		},config.frequency);   //5 seconds(frequency is fetched from config.json)
 	});
 
 	//event fired upon a client disconnection
@@ -125,7 +112,7 @@ arr_rom.push(finalvalue[i].ROM);
 	});
 });
 
-io.close();                 //Close current server properly on disconnection
+io.close();			//Close current server properly on disconnection
 
-server.listen(6002);	    //http server listening on port:6002
+server.listen(config.port);	//http server listening on port:6002(port is fetched from config.json)
 
