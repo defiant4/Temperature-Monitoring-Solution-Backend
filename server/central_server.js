@@ -18,8 +18,7 @@ const app = require('express')();			//importing the express module
 const server = require('http').createServer(app);	//importing the http module 
 const io = require("socket.io")(server);		//importing the socket.io server library
 const body_parser = require("body-parser");		//importing the body-parser library to parse JSON content-type
-const config = require('../config.json');
-
+const config = require('../../config.json');
 var reported_sensor_reading={};			//to store temperature and timestamp values from sensor01 and sensor02
 var subscription_info={};			//to store System ID(s) from subscribed client
 //var arr_ref=[];var arr_acr=[];var arr_rom=[];
@@ -93,8 +92,7 @@ arr_rom.push(finalvalue[i].ROM);
 	socket.on(server_unique_token, function (client_token) {
 		//frequency of 5 seconds
 		setInterval(() => {
-			var sid_info=subscription_info[client_token];		//stores the SID(s) of subscribed client(as per the CLIENT token) 
-
+			        var sid_info=subscription_info[client_token];	//stores the SID(s) of subscribed client(as per the CLIENT token) 
 				var sid_data={};				//to store the response data for the subscribed client		
 				var len = sid_info.length;
 				for(var i=0;i<len;i++)
