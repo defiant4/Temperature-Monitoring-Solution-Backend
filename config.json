@@ -8,7 +8,7 @@
 /* This configuration uses Socket.io library Release 2.0               */
 /* The file allows users to set and change fields dynamically based on *
  * environment and requirements which are mapped to the respective     *
- * fields in the application files.                                    *
+ * fields in the application files.                                    */
 /*---------------------------------------------------------------------*/
 
 {
