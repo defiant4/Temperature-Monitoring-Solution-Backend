@@ -1,3 +1,16 @@
+/*---------------------------------------------------------------------*/
+/* config.json
+/*---------------------------------------------------------------------*/
+/* Configuration file: config.json                                     */
+/* Author: Arnab Adhikari(arnabadhikari93@gmail.com)       12.08.2020  */
+/*---------------------------------------------------------------------*/
+/* This configuration can be used on Node.JS Releases greater 12.XX    */
+/* This configuration uses Socket.io library Release 2.0               */
+/* The file allows users to set and change fields dynamically based on *
+ * environment and requirements which are mapped to the respective     *
+ * fields in the application files.                                    *
+/*---------------------------------------------------------------------*/
+
 {
 	"ip" : "localhost",	
 	"port" : 6002,
